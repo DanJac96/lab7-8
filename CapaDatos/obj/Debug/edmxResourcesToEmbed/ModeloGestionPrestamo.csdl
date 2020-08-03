@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Lab7_8Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="GestionPrestamo">
+    <Key>
+      <PropertyRef Name="id_GestionPrestamo" />
+    </Key>
+    <Property Name="id_GestionPrestamo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_Pais" Type="Int32" Nullable="false" />
+    <Property Name="Habitantes" Type="Int32" Nullable="false" />
+    <Property Name="id_Idioma" Type="Int32" Nullable="false" />
+    <Property Name="PIB" Type="Int32" Nullable="false" />
+    <Property Name="Superficie" Type="Int32" Nullable="false" />
+    <Property Name="RiesgoSeguridad" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Prestamo" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Idioma" Relationship="Self.FK_GestionPrestamo_idIdioma" FromRole="GestionPrestamo" ToRole="Idioma" />
+    <NavigationProperty Name="Pai" Relationship="Self.FK_GestionPrestamo_idPais" FromRole="GestionPrestamo" ToRole="Pais" />
+  </EntityType>
+  <EntityType Name="Idioma">
+    <Key>
+      <PropertyRef Name="id_Idioma" />
+    </Key>
+    <Property Name="id_Idioma" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Descripcion_Idioma" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="GestionPrestamoes" Relationship="Self.FK_GestionPrestamo_idIdioma" FromRole="Idioma" ToRole="GestionPrestamo" />
+  </EntityType>
+  <EntityType Name="Pai">
+    <Key>
+      <PropertyRef Name="id_Pais" />
+    </Key>
+    <Property Name="id_Pais" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre_Pais" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="GestionPrestamoes" Relationship="Self.FK_GestionPrestamo_idPais" FromRole="Pais" ToRole="GestionPrestamo" />
+  </EntityType>
+  <Association Name="FK_GestionPrestamo_idIdioma">
+    <End Role="Idioma" Type="Self.Idioma" Multiplicity="1" />
+    <End Role="GestionPrestamo" Type="Self.GestionPrestamo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Idioma">
+        <PropertyRef Name="id_Idioma" />
+      </Principal>
+      <Dependent Role="GestionPrestamo">
+        <PropertyRef Name="id_Idioma" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GestionPrestamo_idPais">
+    <End Role="Pais" Type="Self.Pai" Multiplicity="1" />
+    <End Role="GestionPrestamo" Type="Self.GestionPrestamo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pais">
+        <PropertyRef Name="id_Pais" />
+      </Principal>
+      <Dependent Role="GestionPrestamo">
+        <PropertyRef Name="id_Pais" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Lab7_8Entities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="GestionPrestamoes" EntityType="Self.GestionPrestamo" />
+    <EntitySet Name="Idiomas" EntityType="Self.Idioma" />
+    <EntitySet Name="Pais" EntityType="Self.Pai" />
+    <AssociationSet Name="FK_GestionPrestamo_idIdioma" Association="Self.FK_GestionPrestamo_idIdioma">
+      <End Role="Idioma" EntitySet="Idiomas" />
+      <End Role="GestionPrestamo" EntitySet="GestionPrestamoes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GestionPrestamo_idPais" Association="Self.FK_GestionPrestamo_idPais">
+      <End Role="Pais" EntitySet="Pais" />
+      <End Role="GestionPrestamo" EntitySet="GestionPrestamoes" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

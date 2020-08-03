@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Lab7_8ModelStoreContainer" CdmEntityContainer="Lab7_8Entities1">
+    <EntitySetMapping Name="GestionPrestamoes">
+      <EntityTypeMapping TypeName="Lab7_8Model.GestionPrestamo">
+        <MappingFragment StoreEntitySet="GestionPrestamo">
+          <ScalarProperty Name="id_GestionPrestamo" ColumnName="id_GestionPrestamo" />
+          <ScalarProperty Name="id_Pais" ColumnName="id_Pais" />
+          <ScalarProperty Name="Habitantes" ColumnName="Habitantes" />
+          <ScalarProperty Name="id_Idioma" ColumnName="id_Idioma" />
+          <ScalarProperty Name="PIB" ColumnName="PIB" />
+          <ScalarProperty Name="Superficie" ColumnName="Superficie" />
+          <ScalarProperty Name="RiesgoSeguridad" ColumnName="RiesgoSeguridad" />
+          <ScalarProperty Name="Prestamo" ColumnName="Prestamo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Idiomas">
+      <EntityTypeMapping TypeName="Lab7_8Model.Idioma">
+        <MappingFragment StoreEntitySet="Idioma">
+          <ScalarProperty Name="id_Idioma" ColumnName="id_Idioma" />
+          <ScalarProperty Name="Descripcion_Idioma" ColumnName="Descripcion_Idioma" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pais">
+      <EntityTypeMapping TypeName="Lab7_8Model.Pai">
+        <MappingFragment StoreEntitySet="Pais">
+          <ScalarProperty Name="id_Pais" ColumnName="id_Pais" />
+          <ScalarProperty Name="Nombre_Pais" ColumnName="Nombre_Pais" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

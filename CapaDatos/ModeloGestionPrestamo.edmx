@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Lab7_8Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="GestionPrestamo">
+          <Key>
+            <PropertyRef Name="id_GestionPrestamo" />
+          </Key>
+          <Property Name="id_GestionPrestamo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_Pais" Type="int" Nullable="false" />
+          <Property Name="Habitantes" Type="int" Nullable="false" />
+          <Property Name="id_Idioma" Type="int" Nullable="false" />
+          <Property Name="PIB" Type="int" Nullable="false" />
+          <Property Name="Superficie" Type="int" Nullable="false" />
+          <Property Name="RiesgoSeguridad" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Prestamo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Idioma">
+          <Key>
+            <PropertyRef Name="id_Idioma" />
+          </Key>
+          <Property Name="id_Idioma" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion_Idioma" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pais">
+          <Key>
+            <PropertyRef Name="id_Pais" />
+          </Key>
+          <Property Name="id_Pais" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre_Pais" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_GestionPrestamo_idIdioma">
+          <End Role="Idioma" Type="Self.Idioma" Multiplicity="1" />
+          <End Role="GestionPrestamo" Type="Self.GestionPrestamo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Idioma">
+              <PropertyRef Name="id_Idioma" />
+            </Principal>
+            <Dependent Role="GestionPrestamo">
+              <PropertyRef Name="id_Idioma" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GestionPrestamo_idPais">
+          <End Role="Pais" Type="Self.Pais" Multiplicity="1" />
+          <End Role="GestionPrestamo" Type="Self.GestionPrestamo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pais">
+              <PropertyRef Name="id_Pais" />
+            </Principal>
+            <Dependent Role="GestionPrestamo">
+              <PropertyRef Name="id_Pais" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Lab7_8ModelStoreContainer">
+          <EntitySet Name="GestionPrestamo" EntityType="Self.GestionPrestamo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Idioma" EntityType="Self.Idioma" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pais" EntityType="Self.Pais" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_GestionPrestamo_idIdioma" Association="Self.FK_GestionPrestamo_idIdioma">
+            <End Role="Idioma" EntitySet="Idioma" />
+            <End Role="GestionPrestamo" EntitySet="GestionPrestamo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GestionPrestamo_idPais" Association="Self.FK_GestionPrestamo_idPais">
+            <End Role="Pais" EntitySet="Pais" />
+            <End Role="GestionPrestamo" EntitySet="GestionPrestamo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Lab7_8Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="GestionPrestamo">
+          <Key>
+            <PropertyRef Name="id_GestionPrestamo" />
+          </Key>
+          <Property Name="id_GestionPrestamo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_Pais" Type="Int32" Nullable="false" />
+          <Property Name="Habitantes" Type="Int32" Nullable="false" />
+          <Property Name="id_Idioma" Type="Int32" Nullable="false" />
+          <Property Name="PIB" Type="Int32" Nullable="false" />
+          <Property Name="Superficie" Type="Int32" Nullable="false" />
+          <Property Name="RiesgoSeguridad" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Prestamo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Idioma" Relationship="Self.FK_GestionPrestamo_idIdioma" FromRole="GestionPrestamo" ToRole="Idioma" />
+          <NavigationProperty Name="Pai" Relationship="Self.FK_GestionPrestamo_idPais" FromRole="GestionPrestamo" ToRole="Pais" />
+        </EntityType>
+        <EntityType Name="Idioma">
+          <Key>
+            <PropertyRef Name="id_Idioma" />
+          </Key>
+          <Property Name="id_Idioma" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion_Idioma" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="GestionPrestamoes" Relationship="Self.FK_GestionPrestamo_idIdioma" FromRole="Idioma" ToRole="GestionPrestamo" />
+        </EntityType>
+        <EntityType Name="Pai">
+          <Key>
+            <PropertyRef Name="id_Pais" />
+          </Key>
+          <Property Name="id_Pais" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre_Pais" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="GestionPrestamoes" Relationship="Self.FK_GestionPrestamo_idPais" FromRole="Pais" ToRole="GestionPrestamo" />
+        </EntityType>
+        <Association Name="FK_GestionPrestamo_idIdioma">
+          <End Role="Idioma" Type="Self.Idioma" Multiplicity="1" />
+          <End Role="GestionPrestamo" Type="Self.GestionPrestamo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Idioma">
+              <PropertyRef Name="id_Idioma" />
+            </Principal>
+            <Dependent Role="GestionPrestamo">
+              <PropertyRef Name="id_Idioma" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GestionPrestamo_idPais">
+          <End Role="Pais" Type="Self.Pai" Multiplicity="1" />
+          <End Role="GestionPrestamo" Type="Self.GestionPrestamo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pais">
+              <PropertyRef Name="id_Pais" />
+            </Principal>
+            <Dependent Role="GestionPrestamo">
+              <PropertyRef Name="id_Pais" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Lab7_8Entities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="GestionPrestamoes" EntityType="Self.GestionPrestamo" />
+          <EntitySet Name="Idiomas" EntityType="Self.Idioma" />
+          <EntitySet Name="Pais" EntityType="Self.Pai" />
+          <AssociationSet Name="FK_GestionPrestamo_idIdioma" Association="Self.FK_GestionPrestamo_idIdioma">
+            <End Role="Idioma" EntitySet="Idiomas" />
+            <End Role="GestionPrestamo" EntitySet="GestionPrestamoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GestionPrestamo_idPais" Association="Self.FK_GestionPrestamo_idPais">
+            <End Role="Pais" EntitySet="Pais" />
+            <End Role="GestionPrestamo" EntitySet="GestionPrestamoes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Lab7_8ModelStoreContainer" CdmEntityContainer="Lab7_8Entities1">
+          <EntitySetMapping Name="GestionPrestamoes">
+            <EntityTypeMapping TypeName="Lab7_8Model.GestionPrestamo">
+              <MappingFragment StoreEntitySet="GestionPrestamo">
+                <ScalarProperty Name="id_GestionPrestamo" ColumnName="id_GestionPrestamo" />
+                <ScalarProperty Name="id_Pais" ColumnName="id_Pais" />
+                <ScalarProperty Name="Habitantes" ColumnName="Habitantes" />
+                <ScalarProperty Name="id_Idioma" ColumnName="id_Idioma" />
+                <ScalarProperty Name="PIB" ColumnName="PIB" />
+                <ScalarProperty Name="Superficie" ColumnName="Superficie" />
+                <ScalarProperty Name="RiesgoSeguridad" ColumnName="RiesgoSeguridad" />
+                <ScalarProperty Name="Prestamo" ColumnName="Prestamo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Idiomas">
+            <EntityTypeMapping TypeName="Lab7_8Model.Idioma">
+              <MappingFragment StoreEntitySet="Idioma">
+                <ScalarProperty Name="id_Idioma" ColumnName="id_Idioma" />
+                <ScalarProperty Name="Descripcion_Idioma" ColumnName="Descripcion_Idioma" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pais">
+            <EntityTypeMapping TypeName="Lab7_8Model.Pai">
+              <MappingFragment StoreEntitySet="Pais">
+                <ScalarProperty Name="id_Pais" ColumnName="id_Pais" />
+                <ScalarProperty Name="Nombre_Pais" ColumnName="Nombre_Pais" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
